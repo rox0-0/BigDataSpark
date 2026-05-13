@@ -5,11 +5,12 @@
 | PostgreSQL | `localhost:5432` | `lab2_db` | `postgres` | `postgres` |
 | ClickHouse | `localhost:8123` | `lab2_reports` | `default` | `mypassword123` |
 
-## 🚀 Запуск
-\`\`\`bash
-docker compose up -d
-docker compose logs -f lab2_spark  # следить за ETL
-\`\`\`
+##  Запуск
+
+`docker compose up -d`
+следить за ETL
+`docker compose logs -f lab2_spark`  # следить за ETL
+
 Для полной очистки: `docker compose down -v`
 
 
