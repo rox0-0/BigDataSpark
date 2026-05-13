@@ -1,4 +1,17 @@
 # BigDataSpark
+##  Подключение к БД
+| Сервис | Host:Port | DB | User | Pass |
+|--------|-----------|----|------|------|
+| PostgreSQL | `localhost:5432` | `lab2_db` | `postgres` | `postgres` |
+| ClickHouse | `localhost:8123` | `lab2_reports` | `default` | `mypassword123` |
+
+## 🚀 Запуск
+\`\`\`bash
+docker compose up -d
+docker compose logs -f lab2_spark  # следить за ETL
+\`\`\`
+Для полной очистки: `docker compose down -v`
+
 
 Анализ больших данных - лабораторная работа №2 - ETL реализованный с помощью Spark
 
