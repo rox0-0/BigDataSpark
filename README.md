@@ -8,8 +8,9 @@
 ##  Запуск
 
 `docker compose up -d`
+
 следить за ETL
-`docker compose logs -f lab2_spark`  # следить за ETL
+`docker compose logs -f lab2_spark`  
 
 Для полной очистки: `docker compose down -v`
 
