@@ -2,10 +2,10 @@
 set -e
 export PATH="/opt/spark/bin:/opt/spark/sbin:$PATH"
 
-echo " Запускаем лабу"
+echo "Запускаем лабу"
 SPARK="/opt/spark/bin/spark-submit"
 
-echo " ETL ->PostgreSQL..."
+echo "ETL -> PostgreSQL..."
 $SPARK \
   --master local[*] \
   --jars /opt/spark/jars/postgresql-42.7.3.jar \
@@ -13,18 +13,17 @@ $SPARK \
   --conf spark.sql.session.timeZone=UTC \
   /opt/spark/work-dir/etl_to_pg.py
 
-
 echo " Ждём готовности ClickHouse..."
 for i in {1..30}; do
   if curl -s http://lab2_clickhouse:8123/ping | grep -q "Ok"; then
     echo " ClickHouse готов"
     break
   fi
-  echo "  ван мор трай ($i/30)..."
+  echo " Ещё одна попытка ($i/30)..."
   sleep 1
 done
 
-echo " Отчёты -> ClickHouse..."
+echo "Отчёты ->ClickHouse..."
 $SPARK \
   --master local[*] \
   --jars /opt/spark/jars/postgresql-42.7.3.jar,/opt/spark/jars/clickhouse-jdbc-0.5.0-http.jar \
@@ -32,4 +31,7 @@ $SPARK \
   --conf spark.sql.session.timeZone=UTC \
   /opt/spark/work-dir/reports_to_ch.py
 
-echo " ГООООЛ! Все джобы выполнены!"
+echo " Создаём  витрины..."
+python3 /opt/spark/work-dir/create_vitrines.py
+
+echo "ГООООЛ! Все джобы выполнены!"
